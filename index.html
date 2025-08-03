@@ -14,7 +14,7 @@
     body {
       font-family: sans-serif;
       background: #f0f0f0;
-      height: 300vh;
+      height: 300vh; /* enough scroll */
     }
 
     .cutouts {
@@ -48,17 +48,23 @@
 </head>
 <body>
 
+  <!-- Scroll space above -->
   <div style="height: 100vh;"></div>
 
+  <!-- Image cutout section -->
   <div class="cutouts" id="cutoutSection">
     <div class="image left-image" style="background-image: url('King.png');"></div>
     <div class="image right-image" style="background-image: url('King.png');"></div>
   </div>
 
+  <!-- Scroll space below -->
   <div style="height: 100vh;"></div>
 
+  <!-- GSAP Libraries -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+  <!-- Scroll Animation -->
   <script>
     gsap.registerPlugin(ScrollTrigger);
 
