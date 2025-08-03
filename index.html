@@ -5,73 +5,87 @@
   <title>Scroll Cutout Animation</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
-    body {
+    * {
       margin: 0;
-      height: 200vh;
-      background: #f0f0f0;
+      padding: 0;
+      box-sizing: border-box;
     }
 
-    .cutouts { 
+    body {
+      font-family: sans-serif;
+      background: #f0f0f0;
+      height: 300vh; /* Gives enough scroll space */
+    }
+
+    .cutouts {
       position: relative;
       height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      background-color: #ffffff;
       overflow: hidden;
     }
 
     .image {
-      width: 300px;
-      height: 300px;
+      position: absolute;
+      top: 50%;
+      width: 40vw;
+      max-width: 200px;
+      aspect-ratio: 1;
       background-color: #ccc;
       background-size: cover;
       background-position: center;
-      position: absolute;
-      top: 50%;
       transform: translateY(-50%);
+      opacity: 0;
     }
 
     .left-image {
-      left: -50%;
+      left: -100%;
     }
 
     .right-image {
-      right: -50%;
+      right: -100%;
     }
   </style>
 </head>
 <body>
 
-<div class="cutouts" id="cutoutSection">
-  <div class="image left-image" style="background-image: url('King.png');"></div>
-  <div class="image right-image" style="background-image: url('King.png');"></div>
-</div>
+  <!-- Scroll buffer above -->
+  <div style="height: 100vh;"></div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-<script>
-  gsap.registerPlugin(ScrollTrigger);
+  <div class="cutouts" id="cutoutSection">
+    <div class="image left-image" style="background-image: url('King.png');"></div>
+    <div class="image right-image" style="background-image: url('King.png');"></div>
+  </div>
 
-  gsap.to(".left-image", {
-    x: "100%",
-    scrollTrigger: {
-      trigger: "#cutoutSection",
-      start: "top center",
-      end: "bottom center",
-      scrub: true,
-    }
-  });
+  <!-- Scroll buffer below -->
+  <div style="height: 100vh;"></div>
 
-  gsap.to(".right-image", {
-    x: "-100%",
-    scrollTrigger: {
-      trigger: "#cutoutSection",
-      start: "top center",
-      end: "bottom center",
-      scrub: true,
-    }
-  });
-</script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <script>
+    gsap.registerPlugin(ScrollTrigger);
+
+    const left = gsap.to(".left-image", {
+      x: "150%", // Stop at center
+      opacity: 1,
+      scrollTrigger: {
+        trigger: "#cutoutSection",
+        start: "top center",
+        end: "bottom center",
+        scrub: true,
+      }
+    });
+
+    const right = gsap.to(".right-image", {
+      x: "-150%", // Stop at center
+      opacity: 1,
+      scrollTrigger: {
+        trigger: "#cutoutSection",
+        start: "top center",
+        end: "bottom center",
+        scrub: true,
+      }
+    });
+  </script>
 
 </body>
 </html>
