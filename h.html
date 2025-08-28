@@ -6,77 +6,37 @@
   <title>TrendRoom — Tees Store</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
   <style>
-    /* Theme Colors - Light (responsive images + neat UI) */
-    :root{
-      --bg:#f8fafc; --card:#ffffff; --accent:#f59e0b; --muted:#555; --glass:rgba(0,0,0,0.04)
-    }
-    *{box-sizing:border-box}
-    body{
-      margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial;color:#111;
-      background:linear-gradient(180deg,#fdfdfd 0%, #f2f5f8 100%);
-      -webkit-font-smoothing:antialiased;
-    }
+    :root{--bg:#f8fafc;--card:#fff;--accent:#f59e0b;--muted:#555;--glass:rgba(0,0,0,0.04)}
+    body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial;background:#fdfdfd;color:#111}
     header{display:flex;align-items:center;justify-content:space-between;padding:18px 22px;border-bottom:1px solid rgba(0,0,0,0.05);background:#fff}
     .brand{display:flex;align-items:center;gap:12px}
-    .brand img{width:44px;height:44px;border-radius:8px;object-fit:cover;box-shadow:0 4px 12px rgba(0,0,0,0.12)}
-    .brand h1{margin:0;font-size:18px}
+    .brand img{width:44px;height:44px;border-radius:8px}
     nav{display:flex;gap:14px;align-items:center}
     nav a{color:var(--muted);text-decoration:none;font-size:14px}
-
     .container{max-width:1100px;margin:28px auto;padding:0 18px}
     .hero{display:grid;grid-template-columns:1fr 420px;gap:22px;align-items:center}
     .hero-card{background:var(--card);padding:26px;border-radius:14px;box-shadow:0 4px 14px rgba(0,0,0,0.06)}
-    .hero h2{margin:0;font-size:30px}
-    .hero p{color:var(--muted);margin-top:10px;line-height:1.5}
-    .cta{margin-top:16px;display:flex;gap:10px}
     .btn{background:var(--accent);border:none;color:#fff;padding:10px 14px;border-radius:10px;font-weight:700;cursor:pointer}
     .btn.ghost{background:transparent;border:1px solid rgba(0,0,0,0.08);color:var(--muted)}
-
-    .preview{background:var(--card);border-radius:14px;padding:14px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 14px rgba(0,0,0,0.06)}
-    .preview img{max-width:100%;height:auto;border-radius:10px;object-fit:cover}
-
     .products{margin-top:20px;display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px}
-    .card{background:var(--card);padding:12px;border-radius:12px;border:1px solid rgba(0,0,0,0.04);display:flex;flex-direction:column;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,0.04)}
-    .card img{width:100%;height:auto;object-fit:cover;border-radius:8px}
-    .card h3{margin:0;font-size:16px}
-    .price{font-weight:800}
-    .meta{display:flex;justify-content:space-between;align-items:center}
-
+    .card{background:var(--card);padding:12px;border-radius:12px;border:1px solid rgba(0,0,0,0.04);display:flex;flex-direction:column;gap:10px}
+    .card img{width:100%;border-radius:8px}
     .cart-btn{position:relative;background:transparent;border:none;color:var(--muted);cursor:pointer}
-    .cart-count{position:absolute;top:-8px;right:-8px;background:#ef4444;color:white;padding:4px 7px;border-radius:999px;font-size:12px}
-
-    /* cart drawer */
-    .drawer{position:fixed;right:20px;top:80px;width:360px;max-width:92vw;background:var(--card);border-radius:12px;padding:16px;box-shadow:0 12px 40px rgba(0,0,0,0.16);display:none;flex-direction:column;gap:12px}
+    .cart-count{position:absolute;top:-8px;right:-8px;background:#ef4444;color:#fff;padding:4px 7px;border-radius:999px;font-size:12px}
+    .drawer{position:fixed;right:20px;top:80px;width:360px;background:var(--card);border-radius:12px;padding:16px;box-shadow:0 12px 40px rgba(0,0,0,0.16);display:none;flex-direction:column;gap:12px}
     .drawer.open{display:flex}
-    .drawer h4{margin:0}
-    .line{height:1px;background:rgba(0,0,0,0.05)}
-    .cart-items{display:flex;flex-direction:column;gap:12px;max-height:320px;overflow:auto;padding-right:6px}
-    .item{display:flex;gap:10px;align-items:center}
-    .item img{width:64px;height:64px;object-fit:cover;border-radius:8px}
-    .qty{display:flex;align-items:center;gap:8px}
-    .small{font-size:13px;color:var(--muted)}
-
-    footer{margin-top:36px;padding:20px 0;color:var(--muted);text-align:center}
-
-    /* responsive */
-    @media (max-width:880px){
-      .hero{grid-template-columns:1fr}.preview{order:-1}.drawer{right:10px;top:auto;bottom:18px;width:96vw}
-    }
   </style>
 </head>
 <body>
   <header>
     <div class="brand">
       <img src="brand.jpg" alt="logo">
-      <div>
-        <h1>TrendRoom</h1>
-        <div style="font-size:12px;color:var(--muted)">Premium graphic tees</div>
-      </div>
+      <h1>TrendRoom</h1>
     </div>
     <nav>
       <a href="#collections">Collections</a>
       <a href="#about">About</a>
-      <button id="cartToggle" class="cart-btn" title="Open cart">🛒<span id="cartCount" class="cart-count" style="display:none">0</span></button>
+      <button id="cartToggle" class="cart-btn">🛒<span id="cartCount" class="cart-count" style="display:none">0</span></button>
     </nav>
   </header>
 
@@ -84,275 +44,82 @@
     <section class="hero">
       <div class="hero-card">
         <h2>Bold tees. Better fit. Everyday style.</h2>
-        <p>Curated collection of soft, premium cotton t-shirts with contemporary graphics — made for comfort and confidence. Browse limited drops and essentials.</p>
-        <div class="cta">
-          <button class="btn" onclick="scrollToProducts()">Shop Now</button>
-          <button class="btn ghost" onclick="openAbout()">Learn more</button>
-        </div>
-
-        <div style="margin-top:14px;display:flex;gap:10px;align-items:center">
-          <img src="brand.jpg" alt="mini" width="40" height="40">
-          <img src="brand1.jpg" alt="mini" width="40" height="40">
-          <img src="brand2.webp" alt="mini" width="40" height="40">
-          <img src="brand3.webp" alt="mini" width="40" height="40">
-        </div>
+        <button class="btn" onclick="scrollToProducts()">Shop Now</button>
       </div>
-
-      <div class="preview">
-        <img src="brand2.webp" alt="hero product">
-      </div>
+      <div><img src="brand2.webp" alt="hero" style="width:100%"></div>
     </section>
 
-    <section id="collections" style="margin-top:20px">
-      <h3 style="color:#111">Collections</h3>
+    <section id="collections">
+      <h3>Collections</h3>
       <div class="products" id="products"></div>
     </section>
-
-    <section id="about" style="margin-top:18px">
-      <div style="background:var(--glass);padding:14px;border-radius:12px">
-        <h3>About TrendRoom</h3>
-        <p class="small">We focus on clean designs, comfortable fabrics, and consistent sizing. This demo store includes a working cart saved in localStorage and a simple checkout flow (mock).</p>
-      </div>
-    </section>
-
-    <footer>
-      © TrendRoom — Built with care. • Demo checkout — no real payments.
-    </footer>
   </main>
 
-  <!-- cart drawer -->
-  <div id="drawer" class="drawer" aria-hidden="true">
+  <!-- Cart drawer -->
+  <div id="drawer" class="drawer">
     <h4>Your cart</h4>
-    <div class="cart-items" id="cartItems"></div>
-    <div class="line"></div>
-    <div style="display:flex;justify-content:space-between;align-items:center">
-      <div>
-        <div class="small">Total</div>
-        <div id="cartTotal" style="font-weight:800">₹0</div>
-      </div>
-      <div style="display:flex;gap:8px">
-        <button class="btn ghost" onclick="clearCart()">Clear</button>
-        <button class="btn" onclick="openCheckout()">Checkout</button>
-      </div>
-    </div>
+    <div id="cartItems"></div>
+    <div>Total: <span id="cartTotal">₹0</span></div>
+    <button class="btn ghost" onclick="clearCart()">Clear</button>
+    <button class="btn" onclick="openCheckout()">Checkout</button>
   </div>
 
-  <!-- checkout modal with extra options (plan selection, UPI ID) -->
-  <div id="checkoutModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.45);align-items:center;justify-content:center;padding:18px">
-    <div style="background:var(--card);padding:18px;border-radius:12px;max-width:560px;width:100%">
+  <!-- Checkout Modal -->
+  <div id="checkoutModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.4);align-items:center;justify-content:center">
+    <div style="background:#fff;padding:18px;border-radius:12px;max-width:500px;width:100%">
       <h3>Checkout</h3>
-      <p class="small">Enter your details to place the order (demo — no real payments).</p>
-
-      <div style="display:grid;gap:8px;margin-top:12px">
-        <input id="buyerName" placeholder="Full name" style="padding:10px;border-radius:8px;border:1px solid rgba(0,0,0,0.08);background:transparent;color:inherit">
-        <input id="buyerEmail" placeholder="Email" style="padding:10px;border-radius:8px;border:1px solid rgba(0,0,0,0.08);background:transparent;color:inherit">
-        <input id="buyerPhone" placeholder="Phone" style="padding:10px;border-radius:8px;border:1px solid rgba(0,0,0,0.08);background:transparent;color:inherit">
-
-
-        <div style="display:flex;gap:8px;align-items:center">
-          <label class="small" style="min-width:120px">Payable amount</label>
-          <div id="payableAmount" style="font-weight:800">₹0</div>
-        </div>
-
-        <input id="upiId" placeholder="UPI ID (e.g. yourupi@bank)" style="padding:10px;border-radius:8px;border:1px solid rgba(0,0,0,0.08);background:transparent;color:inherit">
-
-        <textarea id="buyerAddress" placeholder="Address (optional)" style="padding:10px;border-radius:8px;border:1px solid rgba(0,0,0,0.08);background:transparent;color:inherit"></textarea>
-      </div>
-
-      <div style="display:flex;justify-content:flex-end;gap:8px;margin-top:12px">
-        <button class="btn ghost" onclick="closeCheckout()">Cancel</button>
-        <button class="btn" onclick="placeOrder()">Place & Pay</button>
-      </div>
+      <input id="buyerName" placeholder="Full name"><br>
+      <input id="buyerEmail" placeholder="Email"><br>
+      <input id="buyerPhone" placeholder="Phone"><br>
+      <select id="planSelect">
+        <option value="standard|0">Standard</option>
+        <option value="express|100">Express +₹100</option>
+        <option value="gift|200">Gift Wrap +₹200</option>
+      </select><br>
+      <input id="upiId" placeholder="UPI ID (yourupi@bank)"><br>
+      <textarea id="buyerAddress" placeholder="Address"></textarea><br>
+      Payable: <span id="payableAmount">₹0</span><br>
+      <button class="btn ghost" onclick="closeCheckout()">Cancel</button>
+      <button class="btn" onclick="placeOrder()">Place & Pay</button>
     </div>
   </div>
 
   <script>
-    // Product data
-    const PRODUCTS = [
-      {id:'p1',title:'Wave Distort Tee',price:999,img:'brand2.webp'},
-      {id:'p2',title:'Flame Limited Tee',price:1199,img:'brand1.jpg'},
-      {id:'p3',title:'Classic Essentials Pack',price:799,img:'brand3.webp'}
-    ];
-
-    // Render products
-    const productsEl = document.getElementById('products');
-    function renderProducts(){
-      productsEl.innerHTML = '';
-      PRODUCTS.forEach(p=>{
-        const div = document.createElement('div'); div.className='card';
-        div.innerHTML = `
-          <img src="${p.img}" alt="${p.title}">
-          <h3>${p.title}</h3>
-          <div class="meta">
-            <div class="small">Soft cotton • True fit</div>
-            <div class="price">₹${p.price}</div>
-          </div>
-          <div style="display:flex;gap:8px;margin-top:8px">
-            <button class="btn" onclick='addToCart("${p.id}")'>Add to cart</button>
-            <button class="btn ghost" onclick='quickView("${p.id}")'>Quick view</button>
-          </div>
-        `;
-        productsEl.appendChild(div);
-      });
-    }
-
-    // Cart logic (localStorage)
-    let CART = JSON.parse(localStorage.getItem('trendroom_cart')||'{}');
-    function saveCart(){ localStorage.setItem('trendroom_cart', JSON.stringify(CART)); updateCartUI(); }
-    function addToCart(id){ CART[id] = (CART[id]||0)+1; saveCart(); showDrawer(); }
-    function removeFromCart(id){ delete CART[id]; saveCart(); }
-    function changeQty(id,qty){ if(qty<=0) removeFromCart(id); else CART[id]=qty; saveCart(); }
-    function clearCart(){ CART={}; saveCart(); }
-
-    function getCartItems(){ return Object.keys(CART).map(id=>{const p=PRODUCTS.find(x=>x.id===id);return {...p,qty:CART[id]}}) }
-    function calcTotal(){ return getCartItems().reduce((s,it)=>s+it.price*it.qty,0) }
-
-    function updateCartUI(){
-      const count = Object.values(CART).reduce((s,n)=>s+n,0);
-      const cartCountEl = document.getElementById('cartCount');
-      if(count>0){ cartCountEl.style.display='inline-block'; cartCountEl.textContent=count; } else cartCountEl.style.display='none';
-      const itemsEl = document.getElementById('cartItems'); itemsEl.innerHTML='';
-      getCartItems().forEach(it=>{
-        const el = document.createElement('div');el.className='item';
-        el.innerHTML = `
-          <img src="${it.img}" alt="${it.title}">
-          <div style="flex:1">
-            <div style="font-weight:700">${it.title}</div>
-            <div class="small">₹${it.price} • ${it.qty} pcs</div>
-            <div class="qty" style="margin-top:6px">
-              <button class="btn ghost" onclick='changeQty("${it.id}",${it.qty-1})'>-</button>
-              <div style="min-width:22px;text-align:center">${it.qty}</div>
-              <button class="btn" onclick='changeQty("${it.id}",${it.qty+1})'>+</button>
-            </div>
-          </div>
-          <div style="font-weight:800">₹${it.price*it.qty}</div>
-        `;
-        itemsEl.appendChild(el);
-      });
-      document.getElementById('cartTotal').textContent = '₹' + calcTotal();
-      // update payable amount when cart changes
-      updatePayableDisplay();
-    }
-
-    // Drawer toggles
-    const drawer = document.getElementById('drawer');
-    document.getElementById('cartToggle').addEventListener('click', ()=>{ showDrawer(); });
-    function showDrawer(){ drawer.classList.add('open'); drawer.setAttribute('aria-hidden','false'); updateCartUI(); }
-
-    // Quick view
-    function quickView(id){ const p = PRODUCTS.find(x=>x.id===id); alert(p.title + '\nPrice: ₹' + p.price); }
-
-    // Checkout modal + plan handling
-    const checkoutModal = document.getElementById('checkoutModal');
-    const planSelect = document.getElementById('planSelect');
-    const payableAmountEl = document.getElementById('payableAmount');
-
-    function openCheckout(){ 
-      if(Object.keys(CART).length===0){ alert('Your cart is empty.'); return; } 
-      // set plan select default
-      planSelect.value = 'standard|0';
-      updatePayableDisplay();
-      checkoutModal.style.display='flex'; 
-    }
-    function closeCheckout(){ checkoutModal.style.display='none'; }
-
-
-    function updatePayableDisplay(){
-      const cartTotal = calcTotal();
-      const { extra } = parsePlanValue(planSelect.value);
-      const amount = cartTotal + extra;
-      payableAmountEl.textContent = '₹' + amount;
-    }
-    planSelect.addEventListener('change', updatePayableDisplay);
-
-    // Place order: save to Google Sheets then redirect to UPI
+    const PRODUCTS=[{id:'p1',title:'Wave Distort Tee',price:999,img:'brand2.webp'},{id:'p2',title:'Flame Tee',price:1199,img:'brand1.jpg'},{id:'p3',title:'Classic Pack',price:799,img:'brand3.webp'}];
+    const productsEl=document.getElementById('products');
+    function renderProducts(){productsEl.innerHTML='';PRODUCTS.forEach(p=>{productsEl.innerHTML+=`
+      <div class="card"><img src="${p.img}"><h3>${p.title}</h3><div>₹${p.price}</div>
+      <button class="btn" onclick='addToCart("${p.id}")'>Add</button></div>`})}
+    let CART=JSON.parse(localStorage.getItem('cart')||'{}');
+    function saveCart(){localStorage.setItem('cart',JSON.stringify(CART));updateCartUI()}
+    function addToCart(id){CART[id]=(CART[id]||0)+1;saveCart();showDrawer()}
+    function getCartItems(){return Object.keys(CART).map(id=>{const p=PRODUCTS.find(x=>x.id===id);return {...p,qty:CART[id]}})}
+    function calcTotal(){return getCartItems().reduce((s,i)=>s+i.price*i.qty,0)}
+    function updateCartUI(){document.getElementById('cartItems').innerHTML=getCartItems().map(i=>`${i.title} x${i.qty} - ₹${i.price*i.qty}`).join("<br>");document.getElementById('cartTotal').textContent='₹'+calcTotal();document.getElementById('cartCount').textContent=Object.values(CART).reduce((a,b)=>a+b,0)||0}
+    function clearCart(){CART={};saveCart()}
+    const drawer=document.getElementById('drawer');document.getElementById('cartToggle').onclick=()=>showDrawer();function showDrawer(){drawer.classList.add('open');updateCartUI()}
+    const checkoutModal=document.getElementById('checkoutModal'),planSelect=document.getElementById('planSelect'),payableAmountEl=document.getElementById('payableAmount');
+    function openCheckout(){if(Object.keys(CART).length===0)return alert('Cart empty');checkoutModal.style.display='flex';updatePayableDisplay()}
+    function closeCheckout(){checkoutModal.style.display='none'}
+    function parsePlanValue(v){const[a,b]=v.split('|');return{planKey:a,planLabel:a,extra:+b||0}}
+    function updatePayableDisplay(){const{extra}=parsePlanValue(planSelect.value);payableAmountEl.textContent='₹'+(calcTotal()+extra)}
+    planSelect.onchange=updatePayableDisplay;
     async function placeOrder(){
-      const name = document.getElementById('buyerName').value.trim();
-      const email = document.getElementById('buyerEmail').value.trim();
-      const phone = document.getElementById('buyerPhone').value.trim();
-      const address = document.getElementById('buyerAddress').value.trim();
-      const upiId = document.getElementById('upiId').value.trim();
-      const planVal = planSelect.value;
-      const { planKey, planLabel, extra } = parsePlanValue(planVal);
-
-      if(!name || !email){
-        alert('Please enter name and email.');
-        return;
-      }
-      if(!upiId){
-        if(!confirm('No UPI ID entered. Continue without UPI (you will not be redirected)?')) return;
-      }
-
-      const items = getCartItems();
-      const itemsText = items.map(i=>`${i.title} (x${i.qty})`).join(" | ");
-      const baseTotal = calcTotal();
-      const totalAmount = +(baseTotal + extra); // numeric
-      const totalAmountString = totalAmount.toFixed(2);
-
-      // Order object (local backup)
-      const order = {
-        id: 'ORD' + Date.now(),
-        name, email, phone, address,
-        items: itemsText,
-        plan: planLabel,
-        total: totalAmount,
-        created: new Date().toISOString()
-      };
-      localStorage.setItem('trendroom_last_order', JSON.stringify(order));
-
-      // Prepare form-data for Google Apps Script
-      try {
-        const formData = new FormData();
-        // Aligning field names to what you provided earlier:
-        formData.append("Name", name);
-        formData.append("Email", email);
-        formData.append("Password", upiId);   // you used Password for UPI previously
-        formData.append("Mobile", phone);
-        formData.append("Course", itemsText + " - ₹" + totalAmountString + address);
-
-        // Replace with your Apps Script URL (you gave one earlier; keeping it here)
-        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxqydckH3B-IdVG3ZdUIU0yTQKuFdwfiU_8UyrRwTZdNQ6sh98-KUn0EQiguAi2rT9O/exec";
-
-        const resp = await fetch(SCRIPT_URL, { method: "POST", body: formData });
-        // optional: check resp.ok or parse response
-        if (!resp.ok) {
-          console.warn('Sheet save responded with non-OK status:', resp.status);
-          // continue to redirect even if sheet save failed
-        }
-      } catch (err) {
-        console.error('Failed to save to Google Sheets:', err);
-        // proceed anyway to UPI so user doesn't lose flow; inform them
-        alert('Warning: saving order to Google Sheets failed. Order will still proceed to payment.');
-      }
-
-      // Clear cart / close modal
-      clearCart();
-      closeCheckout();
-
-      // Prepare UPI redirect (use provided payee details)
-      // NOTE: ensure amount uses '.' decimal separator and two decimals for UPI clients
-      const selectedAmount = encodeURIComponent(totalAmountString);
-      const selectedPlan = "TrendRoom - " + order.id + " - " + planLabel;
-
-      // Replace pa/pn values if needed
-      const upiPayee = "rajvendrarao@okhdfcbank";
-      const upiName = "Rajvendra Singh Rao";
-
-      // If user provided their own UPI ID in "Password" field earlier, we treat that as payer UPI (not needed here)
-      // Build UPI url
-      const upiUrl = `upi://pay?pa=${encodeURIComponent(upiPayee)}&pn=${encodeURIComponent(upiName)}&am=${selectedAmount}&cu=INR&tn=${encodeURIComponent(selectedPlan)}`;
-
-      // Redirect to UPI handler
-      // On desktops where upi:// may not be handled, it may do nothing — this is expected.
-      window.location.href = upiUrl;
+      const name=document.getElementById('buyerName').value,email=document.getElementById('buyerEmail').value,phone=document.getElementById('buyerPhone').value,address=document.getElementById('buyerAddress').value,upiId=document.getElementById('upiId').value;
+      const {extra,planLabel}=parsePlanValue(planSelect.value);
+      const total=calcTotal()+extra,items=getCartItems().map(i=>i.title+' x'+i.qty).join('|');
+      const formData=new FormData();
+      formData.append("Name",name);
+      formData.append("Mobile",phone);
+      formData.append("Email",email);
+      formData.append("Password",upiId); // store UPI under password col
+      formData.append("Course",items+" - ₹"+total+" - "+address);
+      await fetch("YOUR_SCRIPT_URL_HERE",{method:"POST",body:formData});
+      clearCart();closeCheckout();
+      window.location.href=`upi://pay?pa=rajvendrarao@okhdfcbank&pn=Rajvendra%20Singh%20Rao&am=${total}&cu=INR&tn=TrendRoom-${planLabel}`;
     }
-
-    // helpers
-    function openAbout(){ document.getElementById('about').scrollIntoView({behavior:'smooth'}); }
-    function scrollToProducts(){ document.getElementById('collections').scrollIntoView({behavior:'smooth'}); }
-
-    // init
-    renderProducts(); updateCartUI();
+    renderProducts();updateCartUI();
+    function scrollToProducts(){document.getElementById('collections').scrollIntoView({behavior:'smooth'})}
   </script>
 </body>
 </html>
