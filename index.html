@@ -6,30 +6,51 @@
   <title>TrendRoom — Tees Store</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
   <style>
-    :root{--bg:#0f1724;--card:#0b1220;--accent:#f59e0b;--muted:#9aa4b2;--glass: rgba(255,255,255,0.04)}
-    *{box-sizing:border-box}body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial;color:#e6eef6;background:linear-gradient(180deg,#071029 0%, #0b1a2b 100%);-webkit-font-smoothing:antialiased}
-    header{display:flex;align-items:center;justify-content:space-between;padding:22px 28px;border-bottom:1px solid rgba(255,255,255,0.03)}
+    /* Theme Colors - Light */
+    :root {
+      --bg: #f8fafc;
+      --card: #ffffff;
+      --accent: #f59e0b;
+      --muted: #555;
+      --glass: rgba(0,0,0,0.04);
+    }
+
+    *{box-sizing:border-box}
+    body {
+      margin:0;
+      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial;
+      color:#111;
+      background:linear-gradient(180deg,#fdfdfd 0%, #f2f5f8 100%);
+      -webkit-font-smoothing:antialiased;
+    }
+
+    header {
+      display:flex;align-items:center;justify-content:space-between;
+      padding:22px 28px;
+      border-bottom:1px solid rgba(0,0,0,0.05);
+      background:#fff;
+    }
     .brand{display:flex;align-items:center;gap:14px}
-    .brand img{width:46px;height:46px;border-radius:8px;object-fit:cover;box-shadow:0 6px 18px rgba(2,6,23,0.6)}
+    .brand img{width:46px;height:46px;border-radius:8px;object-fit:cover;box-shadow:0 4px 12px rgba(0,0,0,0.15)}
     .brand h1{margin:0;font-size:18px;letter-spacing:0.6px}
     nav{display:flex;gap:18px;align-items:center}
     nav a{color:var(--muted);text-decoration:none;font-size:14px}
 
     .container{max-width:1100px;margin:34px auto;padding:0 20px}
     .hero{display:grid;grid-template-columns:1fr 420px;gap:28px;align-items:center}
-    .hero-card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:34px;border-radius:16px;box-shadow:0 10px 30px rgba(2,6,23,0.6)}
+    .hero-card{background:var(--card);padding:34px;border-radius:16px;box-shadow:0 4px 14px rgba(0,0,0,0.08)}
     .hero h2{margin:0;font-size:34px}
     .hero p{color:var(--muted);margin-top:12px;line-height:1.5}
     .cta{margin-top:18px;display:flex;gap:12px}
-    .btn{background:var(--accent);border:none;color:#08101a;padding:12px 16px;border-radius:10px;font-weight:700;cursor:pointer}
-    .btn.ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--muted)}
+    .btn{background:var(--accent);border:none;color:#fff;padding:12px 16px;border-radius:10px;font-weight:700;cursor:pointer}
+    .btn.ghost{background:transparent;border:1px solid rgba(0,0,0,0.1);color:var(--muted)}
 
-    .preview{background:var(--card);border-radius:16px;padding:18px;display:flex;align-items:center;justify-content:center}
-    .preview img{width:360px;max-width:100%;border-radius:12px;object-fit:cover}
+    .preview{background:var(--card);border-radius:16px;padding:18px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 14px rgba(0,0,0,0.08)}
+    .preview img{max-width:100%;height:auto;border-radius:12px;object-fit:cover}
 
     .products{margin-top:30px;display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:18px}
-    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:16px;border-radius:12px;border:1px solid rgba(255,255,255,0.02);display:flex;flex-direction:column;gap:10px}
-    .card img{width:100%;height:240px;object-fit:cover;border-radius:8px}
+    .card{background:var(--card);padding:16px;border-radius:12px;border:1px solid rgba(0,0,0,0.05);display:flex;flex-direction:column;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,0.05)}
+    .card img{width:100%;height:auto;object-fit:cover;border-radius:8px}
     .card h3{margin:0;font-size:16px}
     .price{font-weight:800}
     .meta{display:flex;justify-content:space-between;align-items:center}
@@ -38,10 +59,10 @@
     .cart-count{position:absolute;top:-8px;right:-8px;background:#ef4444;color:white;padding:4px 7px;border-radius:999px;font-size:12px}
 
     /* cart drawer */
-    .drawer{position:fixed;right:20px;top:80px;width:360px;max-width:92vw;background:var(--card);border-radius:12px;padding:16px;box-shadow:0 12px 40px rgba(2,6,23,0.7);display:none;flex-direction:column;gap:12px}
+    .drawer{position:fixed;right:20px;top:80px;width:360px;max-width:92vw;background:var(--card);border-radius:12px;padding:16px;box-shadow:0 12px 40px rgba(0,0,0,0.2);display:none;flex-direction:column;gap:12px}
     .drawer.open{display:flex}
     .drawer h4{margin:0}
-    .line{height:1px;background:rgba(255,255,255,0.03)}
+    .line{height:1px;background:rgba(0,0,0,0.05)}
     .cart-items{display:flex;flex-direction:column;gap:12px;max-height:320px;overflow:auto;padding-right:6px}
     .item{display:flex;gap:10px;align-items:center}
     .item img{width:64px;height:64px;object-fit:cover;border-radius:8px}
@@ -57,7 +78,7 @@
 <body>
   <header>
     <div class="brand">
-      <img src="images/brand.jpg" alt="logo">
+      <img src="brand.jpg" alt="logo">
       <div>
         <h1>TrendRoom</h1>
         <div style="font-size:12px;color:var(--muted)">Premium graphic tees</div>
@@ -81,20 +102,20 @@
         </div>
 
         <div style="margin-top:18px;display:flex;gap:10px;align-items:center">
-          <img src="brand.jpg" alt="mini">
-          <img src="brand1.jpg" alt="mini">
-          <img src="images/brand2.webp" alt="mini">
-          <img src="images/brand3.webp" alt="mini">
+          <img src="brand.jpg" alt="mini" width="40">
+          <img src="brand1.jpg" alt="mini" width="40">
+          <img src="brand2.webp" alt="mini" width="40">
+          <img src="brand3.webp" alt="mini" width="40">
         </div>
       </div>
 
       <div class="preview">
-        <img src="images/brand2.webp" alt="hero product">
+        <img src="brand2.webp" alt="hero product">
       </div>
     </section>
 
     <section id="collections" style="margin-top:26px">
-      <h3 style="color:#eaf4ff">Collections</h3>
+      <h3 style="color:#111">Collections</h3>
       <div class="products" id="products"></div>
     </section>
 
@@ -126,16 +147,16 @@
     </div>
   </div>
 
-  <!-- checkout modal simple -->
-  <div id="checkoutModal" style="display:none;position:fixed;inset:0;background:rgba(2,6,23,0.6);align-items:center;justify-content:center;padding:18px">
+  <!-- checkout modal -->
+  <div id="checkoutModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);align-items:center;justify-content:center;padding:18px">
     <div style="background:var(--card);padding:18px;border-radius:12px;max-width:520px;width:100%">
       <h3>Checkout</h3>
       <p class="small">Enter your details to place the order (demo — no real payments).</p>
       <div style="display:grid;gap:8px;margin-top:12px">
-        <input id="buyerName" placeholder="Full name" style="padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:inherit">
-        <input id="buyerEmail" placeholder="Email" style="padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:inherit">
-        <input id="buyerPhone" placeholder="Phone" style="padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:inherit">
-        <textarea id="buyerAddress" placeholder="Address" style="padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:inherit"></textarea>
+        <input id="buyerName" placeholder="Full name" style="padding:10px;border-radius:8px;border:1px solid rgba(0,0,0,0.1);background:transparent;color:inherit">
+        <input id="buyerEmail" placeholder="Email" style="padding:10px;border-radius:8px;border:1px solid rgba(0,0,0,0.1);background:transparent;color:inherit">
+        <input id="buyerPhone" placeholder="Phone" style="padding:10px;border-radius:8px;border:1px solid rgba(0,0,0,0.1);background:transparent;color:inherit">
+        <textarea id="buyerAddress" placeholder="Address" style="padding:10px;border-radius:8px;border:1px solid rgba(0,0,0,0.1);background:transparent;color:inherit"></textarea>
       </div>
       <div style="display:flex;justify-content:flex-end;gap:8px;margin-top:12px">
         <button class="btn ghost" onclick="closeCheckout()">Cancel</button>
@@ -145,14 +166,12 @@
   </div>
 
   <script>
-    // Product data using provided images
     const PRODUCTS = [
       {id:'p1',title:'Wave Distort Tee',price:999,img:'images/brand2.webp'},
       {id:'p2',title:'Flame Limited Tee',price:1199,img:'images/brand1.jpg'},
       {id:'p3',title:'Classic Essentials Pack',price:799,img:'images/brand3.webp'}
     ];
 
-    // Render products
     const productsEl = document.getElementById('products');
     function renderProducts(){
       productsEl.innerHTML = '';
@@ -174,7 +193,6 @@
       })
     }
 
-    // Cart logic stored in localStorage
     let CART = JSON.parse(localStorage.getItem('trendroom_cart')||'{}');
     function saveCart(){ localStorage.setItem('trendroom_cart', JSON.stringify(CART)); updateCartUI(); }
     function addToCart(id){ CART[id] = (CART[id]||0)+1; saveCart(); showDrawer(); }
@@ -210,15 +228,12 @@
       document.getElementById('cartTotal').textContent = '₹' + calcTotal();
     }
 
-    // Drawer toggles
     const drawer = document.getElementById('drawer');
     document.getElementById('cartToggle').addEventListener('click', ()=>{ showDrawer(); });
     function showDrawer(){ drawer.classList.add('open'); drawer.setAttribute('aria-hidden','false'); updateCartUI(); }
 
-    // Quick view
     function quickView(id){ const p = PRODUCTS.find(x=>x.id===id); alert(p.title + '\nPrice: ₹' + p.price); }
 
-    // Checkout modal
     const checkoutModal = document.getElementById('checkoutModal');
     function openCheckout(){ if(Object.keys(CART).length===0){ alert('Your cart is empty.'); return; } checkoutModal.style.display='flex'; }
     function closeCheckout(){ checkoutModal.style.display='none'; }
@@ -226,7 +241,6 @@
       const name=document.getElementById('buyerName').value.trim();
       const email=document.getElementById('buyerEmail').value.trim();
       if(!name||!email){ alert('Please enter name and email.'); return; }
-      // simulate order
       const order = {id:'ORD'+Date.now(),name,email,items:getCartItems(),total:calcTotal(),created:new Date().toISOString()};
       localStorage.setItem('trendroom_last_order', JSON.stringify(order));
       clearCart(); closeCheckout(); alert('Order placed! Order ID: ' + order.id + '\n(Details saved locally)');
@@ -235,7 +249,6 @@
     function openAbout(){ document.getElementById('about').scrollIntoView({behavior:'smooth'}); }
     function scrollToProducts(){ document.getElementById('collections').scrollIntoView({behavior:'smooth'}); }
 
-    // init
     renderProducts(); updateCartUI();
   </script>
 </body>
