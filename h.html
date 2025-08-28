@@ -256,17 +256,6 @@
     }
     function closeCheckout(){ checkoutModal.style.display='none'; }
 
-    function parsePlanValue(val){
-      const [planKey, extraStr] = val.split('|');
-      const extra = parseFloat(extraStr || '0') || 0;
-      const planLabel = {
-        standard: 'Standard',
-        express: 'Express delivery',
-        giftwrap: 'Gift wrap',
-        premium: 'Premium pack'
-      }[planKey] || planKey;
-      return { planKey, planLabel, extra };
-    }
 
     function updatePayableDisplay(){
       const cartTotal = calcTotal();
