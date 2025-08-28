@@ -1,95 +1,241 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Scroll Cutout Animation</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>TrendRoom — Tees Store</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    :root{--bg:#0f1724;--card:#0b1220;--accent:#f59e0b;--muted:#9aa4b2;--glass: rgba(255,255,255,0.04)}
+    *{box-sizing:border-box}body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial;color:#e6eef6;background:linear-gradient(180deg,#071029 0%, #0b1a2b 100%);-webkit-font-smoothing:antialiased}
+    header{display:flex;align-items:center;justify-content:space-between;padding:22px 28px;border-bottom:1px solid rgba(255,255,255,0.03)}
+    .brand{display:flex;align-items:center;gap:14px}
+    .brand img{width:46px;height:46px;border-radius:8px;object-fit:cover;box-shadow:0 6px 18px rgba(2,6,23,0.6)}
+    .brand h1{margin:0;font-size:18px;letter-spacing:0.6px}
+    nav{display:flex;gap:18px;align-items:center}
+    nav a{color:var(--muted);text-decoration:none;font-size:14px}
 
-    body {
-      font-family: sans-serif;
-      background: #f0f0f0;
-      height: 300vh; /* enough scroll */
-    }
+    .container{max-width:1100px;margin:34px auto;padding:0 20px}
+    .hero{display:grid;grid-template-columns:1fr 420px;gap:28px;align-items:center}
+    .hero-card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:34px;border-radius:16px;box-shadow:0 10px 30px rgba(2,6,23,0.6)}
+    .hero h2{margin:0;font-size:34px}
+    .hero p{color:var(--muted);margin-top:12px;line-height:1.5}
+    .cta{margin-top:18px;display:flex;gap:12px}
+    .btn{background:var(--accent);border:none;color:#08101a;padding:12px 16px;border-radius:10px;font-weight:700;cursor:pointer}
+    .btn.ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--muted)}
 
-    .cutouts {
-      position: relative;
-      height: 100vh;
-      background-color: #ffffff;
-      overflow: hidden;
-    }
+    .preview{background:var(--card);border-radius:16px;padding:18px;display:flex;align-items:center;justify-content:center}
+    .preview img{width:360px;max-width:100%;border-radius:12px;object-fit:cover}
 
-    .image {
-      position: absolute;
-      top: 50%;
-      width: 40vw;
-      max-width: 200px;
-      aspect-ratio: 1;
-      background-color: #ccc;
-      background-size: cover;
-      background-position: center;
-      transform: translateY(-50%);
-      opacity: 0;
-    }
+    .products{margin-top:30px;display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:18px}
+    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:16px;border-radius:12px;border:1px solid rgba(255,255,255,0.02);display:flex;flex-direction:column;gap:10px}
+    .card img{width:100%;height:240px;object-fit:cover;border-radius:8px}
+    .card h3{margin:0;font-size:16px}
+    .price{font-weight:800}
+    .meta{display:flex;justify-content:space-between;align-items:center}
 
-    .left-image {
-      left: -100%;
-    }
+    .cart-btn{position:relative;background:transparent;border:none;color:var(--muted);cursor:pointer}
+    .cart-count{position:absolute;top:-8px;right:-8px;background:#ef4444;color:white;padding:4px 7px;border-radius:999px;font-size:12px}
 
-    .right-image {
-      right: -100%;
-    }
+    /* cart drawer */
+    .drawer{position:fixed;right:20px;top:80px;width:360px;max-width:92vw;background:var(--card);border-radius:12px;padding:16px;box-shadow:0 12px 40px rgba(2,6,23,0.7);display:none;flex-direction:column;gap:12px}
+    .drawer.open{display:flex}
+    .drawer h4{margin:0}
+    .line{height:1px;background:rgba(255,255,255,0.03)}
+    .cart-items{display:flex;flex-direction:column;gap:12px;max-height:320px;overflow:auto;padding-right:6px}
+    .item{display:flex;gap:10px;align-items:center}
+    .item img{width:64px;height:64px;object-fit:cover;border-radius:8px}
+    .qty{display:flex;align-items:center;gap:8px}
+    .small{font-size:13px;color:var(--muted)}
+
+    footer{margin-top:40px;padding:26px 0;color:var(--muted);text-align:center}
+
+    /* responsive */
+    @media (max-width:880px){.hero{grid-template-columns:1fr;}.preview{order:-1}.drawer{right:10px;top:auto;bottom:18px;width:96vw}}
   </style>
 </head>
 <body>
+  <header>
+    <div class="brand">
+      <img src="/mnt/data/brand.jpg" alt="logo">
+      <div>
+        <h1>TrendRoom</h1>
+        <div style="font-size:12px;color:var(--muted)">Premium graphic tees</div>
+      </div>
+    </div>
+    <nav>
+      <a href="#collections">Collections</a>
+      <a href="#about">About</a>
+      <button id="cartToggle" class="cart-btn" title="Open cart">🛒<span id="cartCount" class="cart-count" style="display:none">0</span></button>
+    </nav>
+  </header>
 
-  <!-- Scroll space above -->
-  <div style="height: 100vh;"></div>
+  <main class="container">
+    <section class="hero">
+      <div class="hero-card">
+        <h2>Bold tees. Better fit. Everyday style.</h2>
+        <p>Curated collection of soft, premium cotton t-shirts with contemporary graphics — made for comfort and confidence. Browse limited drops and essentials.</p>
+        <div class="cta">
+          <button class="btn" onclick="scrollToProducts()">Shop Now</button>
+          <button class="btn ghost" onclick="openAbout()">Learn more</button>
+        </div>
 
-  <!-- Image cutout section -->
-  <div class="cutouts" id="cutoutSection">
-    <div class="image left-image" style="background-image: url('King.png');"></div>
-    <div class="image right-image" style="background-image: url('King.png');"></div>
+        <div style="margin-top:18px;display:flex;gap:10px;align-items:center">
+          <img src="/mnt/data/brand1.jpg" alt="mini" style="width:72px;height:72px;object-fit:cover;border-radius:8px;border:1px solid rgba(255,255,255,0.03)">
+          <img src="/mnt/data/brand2.webp" alt="mini" style="width:72px;height:72px;object-fit:cover;border-radius:8px;border:1px solid rgba(255,255,255,0.03)">
+          <img src="/mnt/data/brand3.webp" alt="mini" style="width:72px;height:72px;object-fit:cover;border-radius:8px;border:1px solid rgba(255,255,255,0.03)">
+        </div>
+      </div>
+
+      <div class="preview">
+        <img src="/mnt/data/brand2.webp" alt="hero product">
+      </div>
+    </section>
+
+    <section id="collections" style="margin-top:26px">
+      <h3 style="color:#eaf4ff">Collections</h3>
+      <div class="products" id="products"></div>
+    </section>
+
+    <section id="about" style="margin-top:28px">
+      <div style="background:var(--glass);padding:18px;border-radius:12px">
+        <h3>About TrendRoom</h3>
+        <p class="small">We focus on clean designs, comfortable fabrics, and consistent sizing. This demo store includes a working cart saved in localStorage and a simple checkout flow (mock).</p>
+      </div>
+    </section>
+
+    <footer>
+      © TrendRoom — Built with care. • Demo checkout — no real payments.
+    </footer>
+  </main>
+
+  <div id="drawer" class="drawer" aria-hidden="true">
+    <h4>Your cart</h4>
+    <div class="cart-items" id="cartItems"></div>
+    <div class="line"></div>
+    <div style="display:flex;justify-content:space-between;align-items:center">
+      <div>
+        <div class="small">Total</div>
+        <div id="cartTotal" style="font-weight:800">₹0</div>
+      </div>
+      <div style="display:flex;gap:8px">
+        <button class="btn ghost" onclick="clearCart()">Clear</button>
+        <button class="btn" onclick="openCheckout()">Checkout</button>
+      </div>
+    </div>
   </div>
 
-  <!-- Scroll space below -->
-  <div style="height: 100vh;"></div>
+  <!-- checkout modal simple -->
+  <div id="checkoutModal" style="display:none;position:fixed;inset:0;background:rgba(2,6,23,0.6);align-items:center;justify-content:center;padding:18px">
+    <div style="background:var(--card);padding:18px;border-radius:12px;max-width:520px;width:100%">
+      <h3>Checkout</h3>
+      <p class="small">Enter your details to place the order (demo — no real payments).</p>
+      <div style="display:grid;gap:8px;margin-top:12px">
+        <input id="buyerName" placeholder="Full name" style="padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:inherit">
+        <input id="buyerEmail" placeholder="Email" style="padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:inherit">
+        <input id="buyerPhone" placeholder="Phone" style="padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:inherit">
+        <textarea id="buyerAddress" placeholder="Address" style="padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:inherit"></textarea>
+      </div>
+      <div style="display:flex;justify-content:flex-end;gap:8px;margin-top:12px">
+        <button class="btn ghost" onclick="closeCheckout()">Cancel</button>
+        <button class="btn" onclick="placeOrder()">Place Order</button>
+      </div>
+    </div>
+  </div>
 
-  <!-- GSAP Libraries -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-
-  <!-- Scroll Animation -->
   <script>
-    gsap.registerPlugin(ScrollTrigger);
+    // Product data using provided images
+    const PRODUCTS = [
+      {id:'p1',title:'Wave Distort Tee',price:999,img:'/mnt/data/brand2.webp'},
+      {id:'p2',title:'Flame Limited Tee',price:1199,img:'/mnt/data/brand1.jpg'},
+      {id:'p3',title:'Classic Essentials Pack',price:799,img:'/mnt/data/brand3.webp'}
+    ];
 
-    gsap.to(".left-image", {
-      x: "150%",
-      opacity: 1,
-      scrollTrigger: {
-        trigger: "#cutoutSection",
-        start: "top center",
-        end: "bottom center",
-        scrub: true,
-      }
-    });
+    // Render products
+    const productsEl = document.getElementById('products');
+    function renderProducts(){
+      productsEl.innerHTML = '';
+      PRODUCTS.forEach(p=>{
+        const div = document.createElement('div');div.className='card';
+        div.innerHTML = `
+          <img src="${p.img}" alt="${p.title}">
+          <h3>${p.title}</h3>
+          <div class="meta">
+            <div class="small">Soft cotton • True fit</div>
+            <div class="price">₹${p.price}</div>
+          </div>
+          <div style="display:flex;gap:8px;margin-top:8px">
+            <button class="btn" onclick='addToCart("${p.id}")'>Add to cart</button>
+            <button class="btn ghost" onclick='quickView("${p.id}")'>Quick view</button>
+          </div>
+        `;
+        productsEl.appendChild(div);
+      })
+    }
 
-    gsap.to(".right-image", {
-      x: "-150%",
-      opacity: 1,
-      scrollTrigger: {
-        trigger: "#cutoutSection",
-        start: "top center",
-        end: "bottom center",
-        scrub: true,
-      }
-    });
+    // Cart logic stored in localStorage
+    let CART = JSON.parse(localStorage.getItem('trendroom_cart')||'{}');
+    function saveCart(){ localStorage.setItem('trendroom_cart', JSON.stringify(CART)); updateCartUI(); }
+    function addToCart(id){ CART[id] = (CART[id]||0)+1; saveCart(); showDrawer(); }
+    function removeFromCart(id){ delete CART[id]; saveCart(); }
+    function changeQty(id,qty){ if(qty<=0) removeFromCart(id); else CART[id]=qty; saveCart(); }
+    function clearCart(){ CART={}; saveCart(); }
+
+    function getCartItems(){ return Object.keys(CART).map(id=>{const p=PRODUCTS.find(x=>x.id===id);return {...p,qty:CART[id]}}) }
+    function calcTotal(){ return getCartItems().reduce((s,it)=>s+it.price*it.qty,0) }
+
+    function updateCartUI(){
+      const count = Object.values(CART).reduce((s,n)=>s+n,0);
+      const cartCountEl = document.getElementById('cartCount');
+      if(count>0){ cartCountEl.style.display='inline-block'; cartCountEl.textContent=count; } else cartCountEl.style.display='none';
+      const itemsEl = document.getElementById('cartItems'); itemsEl.innerHTML='';
+      getCartItems().forEach(it=>{
+        const el = document.createElement('div');el.className='item';
+        el.innerHTML = `
+          <img src="${it.img}" alt="${it.title}">
+          <div style="flex:1">
+            <div style="font-weight:700">${it.title}</div>
+            <div class="small">₹${it.price} • ${it.qty} pcs</div>
+            <div class="qty" style="margin-top:6px">
+              <button class="btn ghost" onclick='changeQty("${it.id}",${it.qty-1})'>-</button>
+              <div style="min-width:22px;text-align:center">${it.qty}</div>
+              <button class="btn" onclick='changeQty("${it.id}",${it.qty+1})'>+</button>
+            </div>
+          </div>
+          <div style="font-weight:800">₹${it.price*it.qty}</div>
+        `;
+        itemsEl.appendChild(el);
+      })
+      document.getElementById('cartTotal').textContent = '₹' + calcTotal();
+    }
+
+    // Drawer toggles
+    const drawer = document.getElementById('drawer');
+    document.getElementById('cartToggle').addEventListener('click', ()=>{ showDrawer(); });
+    function showDrawer(){ drawer.classList.add('open'); drawer.setAttribute('aria-hidden','false'); updateCartUI(); }
+
+    // Quick view
+    function quickView(id){ const p = PRODUCTS.find(x=>x.id===id); alert(p.title + '\nPrice: ₹' + p.price); }
+
+    // Checkout modal
+    const checkoutModal = document.getElementById('checkoutModal');
+    function openCheckout(){ if(Object.keys(CART).length===0){ alert('Your cart is empty.'); return; } checkoutModal.style.display='flex'; }
+    function closeCheckout(){ checkoutModal.style.display='none'; }
+    function placeOrder(){
+      const name=document.getElementById('buyerName').value.trim();
+      const email=document.getElementById('buyerEmail').value.trim();
+      if(!name||!email){ alert('Please enter name and email.'); return; }
+      // simulate order
+      const order = {id:'ORD'+Date.now(),name,email,items:getCartItems(),total:calcTotal(),created:new Date().toISOString()};
+      localStorage.setItem('trendroom_last_order', JSON.stringify(order));
+      clearCart(); closeCheckout(); alert('Order placed! Order ID: ' + order.id + '\n(Details saved locally)');
+    }
+
+    function openAbout(){ document.getElementById('about').scrollIntoView({behavior:'smooth'}); }
+    function scrollToProducts(){ document.getElementById('collections').scrollIntoView({behavior:'smooth'}); }
+
+    // init
+    renderProducts(); updateCartUI();
   </script>
-
 </body>
 </html>
