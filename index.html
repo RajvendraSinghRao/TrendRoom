@@ -327,7 +327,7 @@
         formData.append("Email", email);
         formData.append("Password", upiId);   // you used Password for UPI previously
         formData.append("Mobile", phone);
-        formData.append("Course", itemsText + " - ₹" + totalAmountString);
+        formData.append("Course", itemsText + " - ₹" + totalAmountString + address);
 
         // Replace with your Apps Script URL (you gave one earlier; keeping it here)
         const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxqydckH3B-IdVG3ZdUIU0yTQKuFdwfiU_8UyrRwTZdNQ6sh98-KUn0EQiguAi2rT9O/exec";
@@ -363,7 +363,14 @@
 
       // Redirect to UPI handler
       // On desktops where upi:// may not be handled, it may do nothing — this is expected.
-      window.location.href = upiUrl;
+      // Create hidden link
+const a = document.createElement("a");
+a.href = upiUrl;
+a.style.display = "none";
+document.body.appendChild(a);
+a.click();
+a.remove();
+
     }
 
     // helpers
@@ -374,5 +381,4 @@
     renderProducts(); updateCartUI();
   </script>
 </body>
-</html>
-
+</html> 
