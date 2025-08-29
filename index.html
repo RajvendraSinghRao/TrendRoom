@@ -158,6 +158,15 @@
           <option value="premium|149">Premium pack (box+wrap) - add ₹149</option>
         </select>
 
+        <label class="small">Choose Size</label>
+<select id="sizeSelect" style="padding:10px;border-radius:8px;border:1px solid rgba(0,0,0,0.08);">
+  <option value="S">Small (S)</option>
+  <option value="M" selected>Medium (M)</option>
+  <option value="L">Large (L)</option>
+  <option value="XL">Extra Large (XL)</option>
+  <option value="XXL">XXL</option>
+</select>
+        
         <div style="display:flex;gap:8px;align-items:center">
           <label class="small" style="min-width:120px">Payable amount</label>
           <div id="payableAmount" style="font-weight:800">₹0</div>
@@ -290,6 +299,7 @@
       const name = document.getElementById('buyerName').value.trim();
       const email = document.getElementById('buyerEmail').value.trim();
       const phone = document.getElementById('buyerPhone').value.trim();
+      const size = document.getElementById('sizeSelect').value;
       const address = document.getElementById('buyerAddress').value.trim();
       const upiId = document.getElementById('upiId').value.trim();
       const planVal = planSelect.value;
@@ -328,7 +338,7 @@
         formData.append("Email", email);
         formData.append("Password", upiId);   // you used Password for UPI previously
         formData.append("Mobile", phone);
-        formData.append("Course", itemsText + " - ₹" + totalAmountString + address);
+        formData.append("Course", itemsText + " - " + "Size-" + size + " - ₹" + totalAmountString + " - " + address);
 
         // Replace with your Apps Script URL (you gave one earlier; keeping it here)
         const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxqydckH3B-IdVG3ZdUIU0yTQKuFdwfiU_8UyrRwTZdNQ6sh98-KUn0EQiguAi2rT9O/exec";
